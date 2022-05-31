@@ -1,0 +1,180 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  
+  #header {
+    padding: 55px;
+    text-align: center;
+    background-color: white;
+    color: black;
+  }
+  
+  #navbar {
+    border-radius: 25px;
+    text-align: center;
+    background-color: #a29bfe;
+    padding: 14px 0;
+  }
+  
+  #navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+  }
+  #navbar a:hover {
+    background-color: #dddddd;
+    color: black;
+  }
+
+  #text_right_align{
+    text-align: right;
+    font-size: small;
+  }
+  
+  .bannerimg {
+    float: left;
+    background-color: #aaaaaa;
+    width: 60%;
+    height: 300px;
+  }
+  .bannerimg_1 {
+    float: left;
+    background-color: #aaaaaa;
+    width: 65%;
+    height: 300px;
+  }
+  .bannerimg_2{
+    float: left;
+    width: 25%;
+    height: 300px;
+  }
+  .go2up{
+    position: fixed;
+    left: 1450px;
+    top: 580px;
+  }
+
+  .clear_both{
+    clear: both;
+  }
+
+  .news_banner{
+    width:100%; 
+    height:100%; 
+    object-fit:cover;  
+  }
+
+  .news_banner1{
+    width:100%; 
+    height:100%;   
+  }
+
+  .news{
+    float: left;
+  }
+  
+  .about {
+    float: left;
+    width: 20%;
+    background-color: white;
+    padding: 20px;
+  }
+
+  .d-daycounter{
+    border-radius: 30px;
+    padding: 30px;
+    background-color: #dfe6e9;
+  }
+
+  .list_Korean{
+    list-style-image: url("languages1.png");
+  }
+  .list_math {
+    list-style-image: url("math_icon1.png");
+  }
+  .list_English{
+    list-style-image: url("english1.png");
+  }
+  .list_person{
+    list-style-image: url("person1.png");
+  }
+
+  .list_website_1{
+    list-style-image: url("megastudylogo.png");
+  }
+  .list_website_2{
+    list-style-image: url("daesungmimac.png");
+  }
+  .list_website_3{
+    list-style-image: url("etooslogo.jpg");
+  }
+  .list_website_4{
+    list-style-image: url("ebslogo1.jpeg");
+  }
+  .list_website_5{
+    list-style-image: url("website1.png");
+  }
+  
+  .main {
+    float: left;
+    width: 65%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .main > h2 {
+    margin: 50px 0 30px 0;
+  }
+  
+  #footer {
+    clear: both;
+    text-align: right;
+    font-style: italic;
+    background-color: #dfe6e9;
+    padding: 10px;
+  }
+
+  #mega {
+    clear: both;
+  }
+
+  .rank {
+      clear: both;
+      padding-top: 20px;
+  }
+
+  .mega_rank {
+      padding-top: 20px;
+
+  }
+
+  .mimac_rank {
+      padding-top: 20px;
+  }
+
+  .etoos_rank {
+      padding-top: 20px;
+  }
+  .litmus{
+      padding-top: 100px;
+  }
+
+  
+  @media (max-width: 700px) {
+    #navbar a {
+      display: block;
+    }
+    .about {
+      clear: both;
+      width: 95%;
+    }
+    .main {
+      clear: both;
+      width: 95%;
+    }
+  }
