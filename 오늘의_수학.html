@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>오늘의 수학 :D</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="for_index.css" />
+    
+    <script>
+        function Slider(target, type) {
+            // condition
+                let index = 1;
+                let isMoved = true;
+                const speed = 1000; // millisecond
+
+            // slide direction
+                const transform = "transform " + speed / 1000 + "s";
+                let translate = (i) => "translateX(-" + 100 * i + "%)";
+                if (type === "V") { // When type === "V", slide is moved to vertical direction.
+                translate = (i) => "translateY(-" + 100 * i + "%)";
+                }
+            // slider
+                const slider = document.querySelector(target);
+                const sliderRects = slider.getClientRects()[0];
+                slider.style["overflow"] = "hidden";
+
+            // 슬라이더 화면 컨테이너
+                const container = document.createElement("div");
+                container.style["display"] = "flex";
+                container.style["flex-direction"] = type === "V" ? "column" : "row"; // === : ==와 다르게 변수의 유형까지 고려
+                container.style["width"] = sliderRects.width + "px";
+                container.style["height"] = sliderRects.height + "px";
+                container.style["transform"] = translate(index);
+
+            // 슬라이더 화면 목록
+                let boxes = [].slice.call(slider.children);
+                boxes = [].concat(boxes[boxes.length - 1], boxes, boxes[0]);
+
+            // 슬라이더 화면 스타일
+                const size = boxes.length;
+                for (let i = 0; i < size; i++) {
+                    const box = boxes[i];
+                    box.style["flex"] = "none";
+                    box.style["flex-wrap"] = "wrap";
+                    box.style["height"] = "100%";
+                    box.style["width"] = "100%";
+                    container.appendChild(box.cloneNode(true));
+                }
+
+            // 처음/마지막 화면 눈속임 이벤트
+                container.addEventListener("transitionstart", function () {
+                    isMoved = false;
+                    setTimeout(() => {
+                    isMoved = true;
+                    }, speed);
+                });
+                container.addEventListener("transitionend", function () {
+                    // 처음으로 순간이동
+                    if (index === size - 1) {
+                    index = 1;
+                    container.style["transition"] = "none";
+                    container.style["transform"] = translate(index);
+                    }
+                    // 끝으로 순간이동
+                    if (index === 0) {
+                    index = size - 2;
+                    container.style["transition"] = "none";
+                    container.style["transform"] = translate(index);
+                    }
+                });
+
+                // 슬라이더 붙이기
+                slider.innerHTML = "";
+                slider.appendChild(container);
+
+                return {
+                    move: function (i) {
+                    if (isMoved === true) {
+                        index = i;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    },
+                    next: function () {
+                    if (isMoved === true) {
+                        index = (index + 1) % size;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    },
+                    prev: function () {
+                    if (isMoved === true) {
+                        index = index === 0 ? index + size : index;
+                        index = (index - 1) % size;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    }
+                };
+                }
+                // 수능 d-day 카운터에 관한 함수
+                
+
+                function D_day(){
+                   dday= new Date("2022-11-17");
+                   today = new Date();
+
+                   difference = dday - today;
+
+                   difference_day = Math.floor(difference / (1000*60*60*24));
+                   difference_hour = Math.floor((difference / (1000*60*60))%24);
+                   difference_minute = Math.floor((difference / (1000*60))%60);
+                   difference_second = Math.floor(difference / 1000%60);
+                   remainTime.innerText = `${difference_day}일 ${difference_hour}시간 ${difference_minute}분 ${difference_second}초`;
+                }
+               
+               
+    </script>
+  </head>
+  <body>
+    <!--가능하면 top bottom 바로가는 고정된 텍스쳐도 집어넣기-->
+    <!-- Header -->
+    <div id="header">
+      <img src = "logo후보1.JPG"/>
+    </div>
+    <div id = "text_right_align">
+      <p>당신의 꿈을 응원합니다.</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div id="navbar">
+      <a href="index.html">HOME</a>
+      <a href="오늘의 국어.html">오늘의 국어</a>
+      <a href="#top"> 오늘의 수학</a>
+      <a href="#experience">오늘의 영어</a>
+      <a href="#projects">오늘의 탐구</a>
+    </div>
+
+    <!-- Content (Flexible)-->
+    <div id="Links"> <!--강사별 보기, 과목별 보기 등 링크-->
+      <div class="about">
+        <h3>수험 사이트</h3>
+        <ul >
+          <li class = "list_website_1"><a href = "http://www.megastudy.net/megastudy.asp?gt_network=g&gt_keyword=%EB%A9%94%EA%B0%80%EC%8A%A4%ED%84%B0%EB%94%94&gt_target_id=kwd-334718726393&gt_campaign_id=148752161&gt_adgroup_id=9795403721&gclid=CjwKCAjw7IeUBhBbEiwADhiEMTlpS162khIoIHVC3ormp6RJrw53Z5yrAu1VP4CDHvBqX9aSfoAC7RoCJhwQAvD_BwE" target='_blank'>메가스터디</a></li>
+          </br></br>
+          <li class = "list_website_2"><a href = "https://www.mimacstudy.com/ex/prod/2021/afp1014/392716_indexfull.ds?utm_source=google&utm_medium=cpc&utm_campaign=%25EC%258B%25A0%25EA%25B7%259C%2529%2520%25EB%25A7%2588%25EC%259D%25B4%25EB%25A7%25A5_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C&utm_content=00_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C%25EB%25AA%2585&gclid=CjwKCAjw7IeUBhBbEiwADhiEMUE4LohRlQpd2NkgeZ97yk2AHw5xXNz2gmuchSDJy6cRuMO6HeXDRxoCYJ0QAvD_BwE" target='_blank'>대성 마이맥</a></li>
+          </br></br>
+          <li class = "list_website_3"><a href = "https://go3.etoos.com/home/default.asp?etgrd=go3" target="_blank">이투스</a></li>
+          </br></br>
+          <li class = "list_website_4"><a href = "https://www.ebsi.co.kr/ebs/pot/poti/main.ebs" target="_blank">EBS</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://cafe.naver.com/suhui" target="_blank">수만휘</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://www.kice.re.kr/main.do?s=kice" target="_blank">한국교육과정평가원</a></li>
+        </ul>
+        <br/>
+        <hr/>
+        <br/>
+        <div id = "d-daycounter" class = "d-daycounter">
+          <h4>지금부터 수능까지</h4>
+          <h3 id = "remain-time"></h3>
+          <h4>남았어요 화이팅!!</h4>
+        </div>
+      </div>
+   
+      <div class="main">
+        <h2 id="information">오늘의 수학</h2>
+        <div>오늘의 수학영상과 기출문제</div>
+        <div>
+          <section id = "slider_1" class = "bannerimg">
+            <div><a href = "https://www.youtube.com/watch?v=fTJFdn_m4J0&t=1s&ab_channel=%EC%96%B4%ED%94%BC%EC%85%9C" target='_blank'><img class ="news_banner" src = "news1.jpg" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=ZFo_6mtuT-k&t=1s&ab_channel=%ED%95%9C%EC%84%9D%EB%A7%8CTV"  target ="_blank"><img class ="news_banner" src = "news2.jpg" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=49FhezO3hRA&t=3s&ab_channel=%5B%EC%8A%B9%EC%A0%9C%ED%8A%9C%EB%B8%8C%5D%EC%A0%95%EC%8A%B9%EC%A0%9C%EA%B3%B5%EC%8B%9D%EC%9C%A0%ED%8A%9C%EB%B8%8C%EC%B1%84%EB%84%90"  target ="_blank"><img class ="news_banner" src = "news3.jpg" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=8pOcGPceVa4&ab_channel=%EB%8C%80%EC%84%B1%EB%A7%88%EC%9D%B4%EB%A7%A5" target ="_blank"><img class ="news_banner" src = "news_math4.jpg" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=nouerzseztM&ab_channel=theMEGASTUDY" target = "_blank"><img class ="news_banner" src = "news5.jpg" ></a></div>
+          </section>
+        </div>
+        <div class = "news">
+          <ul>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5070165&lev=0&m=0403&searchType=null&statusYN=W&page=1&s=suneung">2022 수능 수학 문제 및 정답</a></li><br/>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500236&boardSeq=5064694&lev=0&m=0403&searchType=S&statusYN=W&page=1&s=suneung">2022 9월 모의고사 수학 문제 및 정답</a></li><br/>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500236&boardSeq=5063573&lev=0&m=0403&searchType=S&statusYN=W&page=1&s=suneung">2022 6월 모의고사 수학 문제 및 정답</a></li><br/>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500234&boardSeq=5061634&lev=0&m=0403&searchType=S&statusYN=W&page=1&s=suneung">2021 수능 수학 문제 및 정답</a></li><br/>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500236&boardSeq=5050887&lev=0&m=0403&searchType=S&statusYN=W&page=2&s=suneung">2021 9월 모의고사 수학 문제 및 정답</a></li><br/>
+            <li><a href = "https://www.suneung.re.kr/boardCnts/view.do?boardID=1500236&boardSeq=5049917&lev=0&m=0403&searchType=S&statusYN=W&page=3&s=suneung">2021 6월 모의고사 수학 문제 및 정답</a></li>
+          </ul>
+        </div>
+        <br />
+  
+        <!-- 오늘의 강의 -->
+        <div class = "clear_both">
+          <br/>
+          <hr/>
+          <h2 id="experience">오늘의 잊기쉬운 개념정리</h2>
+          <div>
+            <section id = "slider_2" class = "bannerimg_1">
+              <div><img class ="news_banner" src = "수학개념1.JPG" ></div>
+              <div><img class ="news_banner" src = "수학개념2.JPG" ></div>
+              <div><img class ="news_banner" src = "수학개념3.JPG" ></div>
+              <div><img class ="news_banner" src = "수학개념4.JPG" ></div>
+            </section>
+          </div>
+        </div>
+        <br/>
+        
+        <!-- PROJECTS -->
+        <div class = "clear_both">
+          <br/>
+          <hr/>
+          <h2 id="projects">오늘의 추천 강의</h2>
+          <video class = "news" src = "video_hwjmath.mp4" width = "600" controls></video>
+          <div class = "news">
+            <ul class = "list_math">
+              <li><a href = "https://www.megastudy.net/teacher_v2/t_promotion/202112_pr/1201_woojinmath/main.asp">현우진의 뉴런</a></li><br/>
+              <li><a href = "https://www.megastudy.net/teacher_v2/t_promotion/202202_pr/0223_woojinmath/main.asp">현우진의 드릴</a></li><br/>
+              <li><a href = "https://www.mimacstudy.com/ex/t278/2021/1201/172111_indexfull.ds">한석원의 알파테크닉</a></li><br/>
+              <li><a href = "https://www.mimacstudy.com/ex/t278/2022/0311/885192_indexfull.ds">한석원의 4의 규칙</a></li><br/>
+              <li><a href = "https://go3.etoos.com/Lecture/LectureDetail.asp?LECTURE_ID=L66209">정승제의 담금질</a></li><br/>
+              <li><a href = "https://go3.etoos.com/Lecture/LectureDetail.asp?LECTURE_ID=L66576">정승제의 기출끝</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <p>
+        Last Modified on May.26, 2022.<br />
+        Managed by Eunsung Kim
+      </p>
+    </div>
+    <div class = "go2up"><a href ="#top"><img src = "up-arrow.png"/></a> </div>
+    <script>
+      const s1 = new Slider("#slider_1","H");
+
+      setInterval(() => {
+        s1.next();
+      },1000);
+
+      const s2 = new Slider("#slider_2","H");
+
+      setInterval(() => {
+        s2.next();
+      },1000);
+
+      
+
+
+      const remainTime = document.querySelector("#remain-time");
+      D_day();
+      setInterval(D_day,1000);
+               
+
+    </script>
+  </body>
+</html>

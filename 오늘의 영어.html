@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>오늘의 영어:D</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="for_index.css" />
+    
+    <script>
+        function Slider(target, type) {
+            // 상태
+                let index = 1;
+                let isMoved = true;
+                const speed = 1000; // ms
+
+            // 방향
+                const transform = "transform " + speed / 1000 + "s";
+                let translate = (i) => "translateX(-" + 100 * i + "%)";
+                if (type === "V") {
+                translate = (i) => "translateY(-" + 100 * i + "%)";
+                }
+            // 슬라이더
+                const slider = document.querySelector(target);
+                const sliderRects = slider.getClientRects()[0];
+                slider.style["overflow"] = "hidden";
+
+            // 슬라이더 화면 컨테이너
+                const container = document.createElement("div");
+                container.style["display"] = "flex";
+                container.style["flex-direction"] = type === "V" ? "column" : "row";
+                container.style["width"] = sliderRects.width + "px";
+                container.style["height"] = sliderRects.height + "px";
+                container.style["transform"] = translate(index);
+
+            // 슬라이더 화면 목록
+                let boxes = [].slice.call(slider.children);
+                boxes = [].concat(boxes[boxes.length - 1], boxes, boxes[0]);
+
+            // 슬라이더 화면 스타일
+                const size = boxes.length;
+                for (let i = 0; i < size; i++) {
+                    const box = boxes[i];
+                    box.style["flex"] = "none";
+                    box.style["flex-wrap"] = "wrap";
+                    box.style["height"] = "100%";
+                    box.style["width"] = "100%";
+                    container.appendChild(box.cloneNode(true));
+                }
+
+            // 처음/마지막 화면 눈속임 이벤트
+                container.addEventListener("transitionstart", function () {
+                    isMoved = false;
+                    setTimeout(() => {
+                    isMoved = true;
+                    }, speed);
+                });
+                container.addEventListener("transitionend", function () {
+                    // 처음으로 순간이동
+                    if (index === size - 1) {
+                    index = 1;
+                    container.style["transition"] = "none";
+                    container.style["transform"] = translate(index);
+                    }
+                    // 끝으로 순간이동
+                    if (index === 0) {
+                    index = size - 2;
+                    container.style["transition"] = "none";
+                    container.style["transform"] = translate(index);
+                    }
+                });
+
+                // 슬라이더 붙이기
+                slider.innerHTML = "";
+                slider.appendChild(container);
+
+                return {
+                    move: function (i) {
+                    if (isMoved === true) {
+                        index = i;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    },
+                    next: function () {
+                    if (isMoved === true) {
+                        index = (index + 1) % size;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    },
+                    prev: function () {
+                    if (isMoved === true) {
+                        index = index === 0 ? index + size : index;
+                        index = (index - 1) % size;
+                        container.style["transition"] = transform;
+                        container.style["transform"] = translate(index);
+                    }
+                    }
+                };
+                }
+                function D_day(){
+                   dday= new Date("2022-11-17");
+                   today = new Date();
+
+                   difference = dday - today;
+
+                   difference_day = Math.floor(difference / (1000*60*60*24));
+                   difference_hour = Math.floor((difference / (1000*60*60))%24);
+                   difference_minute = Math.floor((difference / (1000*60))%60);
+                   difference_second = Math.floor(difference / 1000%60);
+                   remainTime.innerText = `${difference_day}일 ${difference_hour}시간 ${difference_minute}분 ${difference_second}초`;
+                }
+               
+    </script>
+  </head>
+  <body>
+    <!--가능하면 top bottom 바로가는 고정된 텍스쳐도 집어넣기-->
+    <!-- Header -->
+    <div id="header">
+      <img src = "logo후보1.JPG"/>
+    </div>
+    <div id = "text_right_align">
+      <p>당신의 꿈을 응원합니다.</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div id="navbar">
+      <a href="index.html">HOME</a>
+      <a href="오늘의 국어.html">오늘의 국어</a>
+      <a href="오늘의_수학.html"> 오늘의 수학</a>
+      <a href="#top">오늘의 영어</a>
+      <a href="오늘의 탐구.html">오늘의 탐구</a>
+    </div>
+
+    <!-- Content (Flexible)-->
+    <div id="Links"> <!--강사별 보기, 과목별 보기 등 링크-->
+      <div class="about">
+        <h3>수험 사이트</h3>
+        <ul >
+          <li class = "list_website_1"><a href = "http://www.megastudy.net/megastudy.asp?gt_network=g&gt_keyword=%EB%A9%94%EA%B0%80%EC%8A%A4%ED%84%B0%EB%94%94&gt_target_id=kwd-334718726393&gt_campaign_id=148752161&gt_adgroup_id=9795403721&gclid=CjwKCAjw7IeUBhBbEiwADhiEMTlpS162khIoIHVC3ormp6RJrw53Z5yrAu1VP4CDHvBqX9aSfoAC7RoCJhwQAvD_BwE" target='_blank'>메가스터디</a></li>
+          </br></br>
+          <li class = "list_website_2"><a href = "https://www.mimacstudy.com/ex/prod/2021/afp1014/392716_indexfull.ds?utm_source=google&utm_medium=cpc&utm_campaign=%25EC%258B%25A0%25EA%25B7%259C%2529%2520%25EB%25A7%2588%25EC%259D%25B4%25EB%25A7%25A5_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C&utm_content=00_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C%25EB%25AA%2585&gclid=CjwKCAjw7IeUBhBbEiwADhiEMUE4LohRlQpd2NkgeZ97yk2AHw5xXNz2gmuchSDJy6cRuMO6HeXDRxoCYJ0QAvD_BwE" target='_blank'>대성 마이맥</a></li>
+          </br></br>
+          <li class = "list_website_3"><a href = "https://go3.etoos.com/home/default.asp?etgrd=go3" target="_blank">이투스</a></li>
+          </br></br>
+          <li class = "list_website_4"><a href = "https://www.ebsi.co.kr/ebs/pot/poti/main.ebs" target="_blank">EBS</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://cafe.naver.com/suhui" target="_blank">수만휘</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://www.kice.re.kr/main.do?s=kice" target="_blank">한국교육과정평가원</a></li>
+
+
+        </ul>
+        <br/>
+        <hr/>
+        <br/>
+        <div id = "d-daycounter" class = "d-daycounter">
+          <h4>지금부터 수능까지</h4>
+          <h3 id = "remain-time"></h3>
+          <h4>남았어요 화이팅!!</h4>
+        </div>
+    </div>
+
+      <div class="main">
+        <h2 id="information">영어 대표 강사 TOP 3</h2>
+        <div class="newimage">대표 강사&뉴스</div>
+        <div>
+          <section id = "slider_1" class = "bannerimg">
+            <div><a href = "https://www.youtube.com/watch?v=uWAQ4sndZA8" target='_blank'><img class ="news_banner" src = "이명학.png" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=bsR80pyaPYI"  target ="_blank"><img class ="news_banner" src = "조정식.jpg" ></a></div>
+            <div><a href = "https://www.youtube.com/watch?v=L-ys6EAiYPE" target ="_blank"><img class ="news_banner" src = "주혜연.png" ></a></div>
+          </section>
+        </div>
+        <div class = "news">
+          <ul>
+            <li><a href = "https://www.mk.co.kr/news/economy/view/2022/03/226829/">확 어려워진 수능영어…매일 30분 '이것' 하세요</a></li>
+            <li><a href = "http://www.lecturernews.com/news/articleView.html?idxno=97796">“영어가 쉬워지는 거꾸로 공부법” 김어진·신동규의 『영알못 엄마는 어떻게 영어고수가 되었을까</a></li>
+            <li><a href = "http://www.edupolnews.com/news/articleView.html?idxno=20303">역대급 '불수능' 영어 영역 1등급 비율 '6.25%'... 대학별 반영 비율은?</a></li>
+            <li><a href = "https://www.etoday.co.kr/news/view/2080889">2022 수능, 영어 1·2등급 점수차 대학별 반영 방식 달라</a></li>
+          </ul>
+        </div>
+        <br />
+        
+        
+
+        <!-- EXPERIENCE -->
+        <div class = "clear_both">
+          <br/>
+          <hr/>
+          <h2 id="experience">오늘의 강의</h2>
+          <video controls src="e_today.mp4" width="500"></video>
+          <h3><오늘의 강의로 선정된 메가스터디의 조정식></h3>
+          <h5 style="background-color: rgb(249, 222, 249); text-align:center;"> " 인생에서 가장 중요한 시기는 지금이다.<br>
+            20대 때 쌓여져 있던 경험은 평생 극복되지 않는다.<br>
+            작년 수능 난이도가 지금과 같다고 생각하면 안된다.<br>
+            어느 정도 영어 실력이면 3등급까지는 안 가지만 2등급은 가기 쉽다. "<br>
+          </h5>
+        </div>
+
+        <!-- PROJECTS -->
+        <h2 id="projects">오늘의 강사</h2>
+        <img src="e_today.png" width="500">
+        <h3><오늘의 강사로 선정된 대성 마이맥의 이명학></h3>
+        <h5 style="background-color: rgb(221, 236, 198); text-align:center;">
+            대성 마이맥에서 뜨거운 인기를 누리고 있는 이명학<br>
+            그는 [REAL 공감 영어]라는 강좌로 수많은 수험생들을 사로잡고 있다.<br>
+            영어 입문자들을 위한 강의부터 문장 해석, 지문 이해, 문제 풀이까지, <br>
+            누구를 골라야할지 고민이 된다면 대성 마이맥의 이명학을 추천한다.
+          </h5>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <p>
+        Managed by Haeun Park
+      </p>
+    </div>
+    <div class = "go2up"><a href ="#top"><img src = "up-arrow.png"/></a> </div>
+    <script>
+      const s1 = new Slider("#slider_1","H");
+
+      setInterval(() => {
+        s1.next();
+      },1000)
+
+      const remainTime = document.querySelector("#remain-time");
+      D_day();
+      setInterval(D_day,1000);
+
+
+    </script>
+  </body>
+</html>

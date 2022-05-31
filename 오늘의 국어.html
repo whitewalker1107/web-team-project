@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 국어</title>
+  <link rel="stylesheet" href="for_index.css">
+  
+  <script>
+    function Slider(target, type) {
+      // 상태
+      let index = 1;
+      let isMoved = true;
+      const speed = 1000; // ms
+
+      // 방향
+      const transform = "transform " + speed / 1000 + "s";
+      let translate = (i) => "translateX(-" + 100 * i + "%)";
+      if (type === "V") {
+        translate = (i) => "translateY(-" + 100 * i + "%)";
+      }
+      // 슬라이더
+      const slider = document.querySelector(target);
+      const sliderRects = slider.getClientRects()[0];
+      slider.style["overflow"] = "hidden";
+
+      // 슬라이더 화면 컨테이너
+      const container = document.createElement("div");
+      container.style["display"] = "flex";
+      container.style["flex-direction"] = type === "V" ? "column" : "row";
+      container.style["width"] = sliderRects.width + "px";
+      container.style["height"] = sliderRects.height + "px";
+      container.style["transform"] = translate(index);
+
+      // 슬라이더 화면 목록
+      let boxes = [].slice.call(slider.children);
+      boxes = [].concat(boxes[boxes.length - 1], boxes, boxes[0]);
+
+      // 슬라이더 화면 스타일
+      const size = boxes.length;
+      for (let i = 0; i < size; i++) {
+        const box = boxes[i];
+        box.style["flex"] = "none";
+        box.style["flex-wrap"] = "wrap";
+        box.style["height"] = "100%";
+        box.style["width"] = "100%";
+        container.appendChild(box.cloneNode(true));
+      }
+
+      // 처음/마지막 화면 눈속임 이벤트
+      container.addEventListener("transitionstart", function () {
+        isMoved = false;
+        setTimeout(() => {
+          isMoved = true;
+        }, speed);
+      });
+      container.addEventListener("transitionend", function () {
+        // 처음으로 순간이동
+        if (index === size - 1) {
+          index = 1;
+          container.style["transition"] = "none";
+          container.style["transform"] = translate(index);
+        }
+        // 끝으로 순간이동
+        if (index === 0) {
+          index = size - 2;
+          container.style["transition"] = "none";
+          container.style["transform"] = translate(index);
+        }
+      });
+
+      // 슬라이더 붙이기
+      slider.innerHTML = "";
+      slider.appendChild(container);
+
+      return {
+        move: function (i) {
+          if (isMoved === true) {
+            index = i;
+            container.style["transition"] = transform;
+            container.style["transform"] = translate(index);
+          }
+        },
+        next: function () {
+          if (isMoved === true) {
+            index = (index + 1) % size;
+            container.style["transition"] = transform;
+            container.style["transform"] = translate(index);
+          }
+        },
+        prev: function () {
+          if (isMoved === true) {
+            index = index === 0 ? index + size : index;
+            index = (index - 1) % size;
+            container.style["transition"] = transform;
+            container.style["transform"] = translate(index);
+          }
+        }
+      };
+    }
+    // 수능 d-day 카운터에 관한 함수
+
+    function D_day() {
+       dday = new Date("2022-11-17");
+       today = new Date();
+
+       difference = dday - today;
+
+       difference_day = Math.floor(difference / (1000 * 60 * 60 * 24));
+       difference_hour = Math.floor((difference / (1000 * 60 * 60)) % 24);
+       difference_minute = Math.floor((difference / (1000 * 60)) % 60);
+       difference_second = Math.floor(difference / 1000 % 60);
+      remainTime.innerText = `${difference_day}일 ${difference_hour}시간 ${difference_minute}분 ${difference_second}초`
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header">
+    <img src = "logo후보1.JPG"/>
+  </div>
+  <div id = "text_right_align">
+    <p>당신의 꿈을 응원합니다.</p>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div id="navbar">
+    <a href="index.html">HOME</a>
+    <a href="#top">오늘의 국어</a>
+    <a href="오늘의_수학.html"> 오늘의 수학</a>
+    <a href="오늘의 영어.html">오늘의 영어</a>
+    <a href="오늘의 탐구.html">오늘의 탐구</a>
+  </div>
+  <!-- Content (Flexible)-->
+  <div id="Links">
+    <!--강사별 보기, 과목별 보기 등 링크-->
+    <div class="about">
+      <h3>수험 사이트</h3>
+      <ul>
+        <li class = "list_website_1"><a href = "http://www.megastudy.net/megastudy.asp?gt_network=g&gt_keyword=%EB%A9%94%EA%B0%80%EC%8A%A4%ED%84%B0%EB%94%94&gt_target_id=kwd-334718726393&gt_campaign_id=148752161&gt_adgroup_id=9795403721&gclid=CjwKCAjw7IeUBhBbEiwADhiEMTlpS162khIoIHVC3ormp6RJrw53Z5yrAu1VP4CDHvBqX9aSfoAC7RoCJhwQAvD_BwE" target='_blank'>메가스터디</a></li>
+          </br></br>
+          <li class = "list_website_2"><a href = "https://www.mimacstudy.com/ex/prod/2021/afp1014/392716_indexfull.ds?utm_source=google&utm_medium=cpc&utm_campaign=%25EC%258B%25A0%25EA%25B7%259C%2529%2520%25EB%25A7%2588%25EC%259D%25B4%25EB%25A7%25A5_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C&utm_content=00_%25EB%25B8%258C%25EB%259E%259C%25EB%2593%259C%25EB%25AA%2585&gclid=CjwKCAjw7IeUBhBbEiwADhiEMUE4LohRlQpd2NkgeZ97yk2AHw5xXNz2gmuchSDJy6cRuMO6HeXDRxoCYJ0QAvD_BwE" target='_blank'>대성 마이맥</a></li>
+          </br></br>
+          <li class = "list_website_3"><a href = "https://go3.etoos.com/home/default.asp?etgrd=go3" target="_blank">이투스</a></li>
+          </br></br>
+          <li class = "list_website_4"><a href = "https://www.ebsi.co.kr/ebs/pot/poti/main.ebs" target="_blank">EBS</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://cafe.naver.com/suhui" target="_blank">수만휘</a></li>
+          </br></br>
+          <li class = "list_website_5"><a href = "https://www.kice.re.kr/main.do?s=kice" target="_blank">한국교육과정평가원</a></li>
+      </ul>
+      <br/>
+        <hr/>
+        <br/>
+        <div id = "d-daycounter" class = "d-daycounter">
+          <h4>지금부터 수능까지</h4>
+          <h3 id = "remain-time"></h3>
+          <h4>남았어요 화이팅!!</h4>
+        </div>
+    </div>
+    <!--커리큘럼 영상 오늘의 영상 main 시작-->
+    <div class="main">
+      <h2 id="information">인기영상과 기출문제</h2>
+      <div class="newimage">커리큘럼 가이드</div>
+      <div>
+        <section id="slider_1" class="bannerimg">
+
+          <div><a href="https://youtube.com/watch?v=D2-rlms7t_Q" target="_blank"><img class="news_banner1"
+                src="김동욱 커리큘럼 추출본.jpg"></a></div>
+
+          <div><a href="https://www.youtube.com/watch?v=pluGbEwCidM
+              " target="_blank"><img class="news_banner1" src="유대종 커리큘럼 추출물.jpg"></a></div>
+          <div><a href="https://www.youtube.com/watch?v=yP9T09rlzc4" target="_blank"><img class="news_banner1"
+                src="김민정 커리큘럼 추출.jpg"></a></div>
+          <div><a href="https://www.youtube.com/watch?v=sY91gEbDIvY
+              " target="_blank"><img class="news_banner1" src="신영균 커리큘럼 추출.jpg"></a></div>
+        </section>
+      </div>
+      <div class="news">
+
+        <br>
+        <li><a href="https://www.kice.re.kr/boardCnts/list.do?boardID=1500234&m=0403&s=suneung&searchStr=">2022 수능 국어 기출
+            문제</a></li>
+        </br>
+        <li><a href="https://www.kice.re.kr/boardCnts/list.do?boardID=1500236&m=0403&s=suneung&searchStr=">2022 6월 9월 국어
+            모의고사</a></li>
+        </br>
+        <li><a
+            href="https://kamdongmath.tistory.com/entry/2022-%EC%82%AC%EA%B4%80%ED%95%99%EA%B5%90-%EA%B8%B0%EC%B6%9C">2022
+            사관학교 국어 기출문제</a></li>
+        </br>
+        <li><a href="https://www.sen.go.kr/web/services/bbs/bbsList.action?bbsBean.bbsCd=105">2022 국어 영역 3월 학력평가</a>
+        </li>
+        </ul>
+      </div>
+      <br />
+      <div class="rank">
+        <h2>강사순위</h2>
+        <section class="mega_rank">
+          <h2>mega</h2>
+          <a href="https://www.megastudy.net/teacher_v2/main.asp?tec_cd=megabori&dom_cd=1&HomeCd=182"
+            target="_blank"><img src="강민철 프로필.jpg" alt="강민철" ></a>
+          <a href="https://www.megastudy.net/teacher_v2/main.asp?tec_cd=megakdw&dom_cd=1&HomeCd=148"
+            target="_blank"><img src="김동욱프로필.jpg" alt="김동욱"></a>
+          <a href="https://www.megastudy.net/teacher_v2/main.asp?tec_cd=mysig21&dom_cd=1&HomeCd=13 "
+            target="_blank"><img src="이원준 프로필.jpg" alt="이원준" ></a>
+          <p>1위 강민철</p>
+          <p>2위 김동욱</p>
+          <p>3위 이원준</p>
+        </section>
+        <section class="mimac_rank">
+          <h2>mimac</h2>
+          <a href="https://www.mimacstudy.com/tcher/eachTcherMain.ds?coType=M&relm=01&subj=&tcd=925&type=01925"
+            target="_blank"><img src="김승리 프로필 2.png" alt="김승리" ></a>
+          <a href="https://www.mimacstudy.com/tcher/eachTcherMain.ds?coType=M&relm=01&subj=&tcd=1028&type=011028"
+            target="_blank"><img src="유대종 프로필.jpg" alt="유대종" ></a>
+          <a href="https://www.mimacstudy.com/tcher/eachTcherMain.ds?coType=M&relm=01&subj=&tcd=970&type=01970 "
+            target="_blank"><img src="김젬마 프로필.png" alt="김젬마" ></a>
+          <p>1위 김승리</p>
+          <p>2위 유대종</p>
+          <p>3위 김젬마</p>
+        </section>
+        <section class="etoos_rank">
+          <h2>etoos</h2>
+          <a href="https://go3.etoos.com/teacher/main.asp?teacher_id=200209&etgrd=go3" target="_blank"><img
+              src="김민정 프로필.png" alt="김민정" ></a>
+          <a href="https://go3.etoos.com/teacher/main.asp?teacher_id=200248&etgrd=go3" target="_blank"><img
+              src="신영균 프로필.png" alt="신영균" ></a>
+          <a href="https://go3.etoos.com/teacher/main.asp?teacher_id=200345&etgrd=go3" target="_blank"><img
+              src="그믐달 프로필.png" alt="그믐달" ></a>
+          <a href="https://go3.etoos.com/teacher/main.asp?teacher_id=200238&etgrd=go3" target="_blank"><img
+              src="방동진 프로필.png" alt="방동진"></a>
+          <p>1위 김민정</p>
+          <p>2위 신영균</p>
+          <p>3위 그믐달</p>
+          <p>4위 방동진</p>
+        </section>
+      </div>
+      <div class="litmus">
+        <section class="test">
+          <h2>국어 모의고사</h2>
+          <a href="https://www.battant.net/" target="_blank"><img src="바탕 모의고사.png" alt="바탕 모의고사"></a>
+          <a href="https://www.yigam.co.kr/?gclid=EAIaIQobChMIv4mQ8OX79wIVGNpMAh2-4QEpEAAYAiAAEgLQxPD_BwE"
+            target="_blank"><img src="이감 모의고사.png" alt="이감 모의고사"></a>
+          <a href="https://www.imaginecne.com/main.do" target="_blank"><img src="상상 모의고사.png"
+              alt="상상 모의고사"></a>
+        </section>
+        </section>
+      </div>
+      <!--main 끝-->
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <p>
+        Last Modified on Apr. 25, 2022.<br />
+        Managed by TaekKi Kim
+      </p>
+    </div>
+    <div class = "go2up"><a href ="#top"><img src = "up-arrow.png"/></a> </div>
+
+    <script>
+      const s1 = new Slider("#slider_1", "H");
+
+      setInterval(() => {
+        s1.next();
+      }, 1000)
+
+      const remainTime = document.querySelector("#remain-time");
+      D_day();
+      setInterval(D_day,1000);
+    </script>
+</body>
+
+</html>
